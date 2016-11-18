@@ -10,6 +10,7 @@
             "email": "phphome@qq.com"
         }
     ],
+    "minimum-stability": "stable",
     "require": {
         "yiisoft/yii2": "*"
     },
