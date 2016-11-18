@@ -10,7 +10,7 @@
             "email": "phphome@qq.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "e282486518\\migration\\": ""
