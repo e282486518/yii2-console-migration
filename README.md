@@ -36,3 +36,10 @@ Usage
         ],
     ],
 ```
+
+在命令行中使用方式：
+```
+php ./yii migrates all #备份全部表
+php ./yii migrates table1,table2,table3... #备份多张表
+php ./yii migrates table1 #备份一张表
+```
