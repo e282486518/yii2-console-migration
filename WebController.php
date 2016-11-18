@@ -15,7 +15,7 @@ class WebController extends BaseController
     /**
      * Creates a new migration. php yii migrate/create all
      * 
-     * @param string $name 
+     * @param string $name  
      * @throws Exception if the name argument is invalid.
      */
     public function actionCreate($name){
