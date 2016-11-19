@@ -7,21 +7,21 @@ yii2使用migration备份和还原数据库，最初只想做一个在命令行�
 安装 Installation
 ------------
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+安装此扩展的首选方式是通过 [composer](http://getcomposer.org/download/).
 
-Either run
+运行
 
 ```
 composer require --prefer-dist e282486518/yii2-console-migration "*"
 ```
 
-or add
+或者添加
 
 ```
 "e282486518/yii2-console-migration": "*"
 ```
 
-to the require section of your `composer.json` file.
+到 `composer.json` 文件的对应地方.
 
 
 命令行中备份数据表：

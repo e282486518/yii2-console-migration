@@ -62,7 +62,7 @@ class WebAction extends Action
         if ($this->returnFormat == 'json') {
             $this->ajaxReturn(0,'backup success.');
         } else {
-            echo 'backup success.';
+            echo 'backup success..';
         }
     }
 
