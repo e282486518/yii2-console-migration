@@ -48,7 +48,7 @@ php ./yii migrates/up #恢复全部表
 
 在后台中备份数据表：
 -----
-在后头的控制器中，例如```PublicController```中加入下面的代码：
+在后台的控制器中，例如```PublicController```中加入下面的代码：
 ```php
 public function actions()
 {
