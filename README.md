@@ -39,9 +39,9 @@ to the require section of your `composer.json` file.
 
 在命令行中使用方式：
 ```
-php ./yii migrates/create all #备份全部表
-php ./yii migrates/create table1,table2,table3... #备份多张表
-php ./yii migrates/create table1 #备份一张表
+php ./yii migrates/backup all #备份全部表
+php ./yii migrates/backup table1,table2,table3... #备份多张表
+php ./yii migrates/backup table1 #备份一张表
 
 php ./yii migrates/up #恢复全部表
 ```
