@@ -1,18 +1,16 @@
 <?php
 
-namespace e282486518\migration;
+namespace e282486518\migration\components;
 
 use Yii;
-use yii\console\Exception;
-use yii\helpers\Console;
+use yii\base\Object;
 use yii\helpers\FileHelper;
-use yii\console\controllers\MigrateController;
-use e282486518\migration\components\OutputString;
+use yii\base\view;
 
 /**
- * This is just an example.
+ * 创建Migration文件 
  */
-class BaseController extends MigrateController
+class MigrateCreate extends Object
 {
     /**
      * @var $upStr OutputString
@@ -25,15 +23,14 @@ class BaseController extends MigrateController
     protected $downStr;
 
     /**
-     * @var string $templateFile
+     * @var $migrationPath string  默认 migration classes 存储路径.
      */
-    public $templateFile = '@yii/views/migration.php';
+    public $migrationPath = '@app/migrations';
 
     /**
      * ---------------------------------------
      * 创建 Migration 表数据和表结构
      * @param $table string 完整表名
-     * @throws Exception
      * ---------------------------------------
      */
     public function create($table){
@@ -69,7 +66,8 @@ class BaseController extends MigrateController
         $name = 'm' . gmdate('ymd_His') . '_' . $this->getTableName($table);
         $file = $path . DIRECTORY_SEPARATOR . $name . '.php';
 
-        $content = $this->renderFile(__DIR__."/views/migration.php", [
+        $view = new view();
+        $content = $view->renderFile(dirname(__DIR__)."/views/migration.php", [
             'className' => $name,
             'up' => $this->upStr->output()."\n",
             'down' => $this->downStr->output()."\n"
