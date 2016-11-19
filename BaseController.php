@@ -66,7 +66,7 @@ class BaseController extends MigrateController
             FileHelper::createDirectory($path);
         }
 
-        $name = 'm' . gmdate('ymd') . '_000000_' . $this->getTableName($table);
+        $name = 'm' . gmdate('ymd_His') . '_' . $this->getTableName($table);
         $file = $path . DIRECTORY_SEPARATOR . $name . '.php';
 
         $content = $this->renderFile(__DIR__."/views/migration.php", [
