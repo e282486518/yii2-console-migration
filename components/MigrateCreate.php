@@ -154,7 +154,7 @@ class MigrateCreate extends Object
                         $link_to_column = $k;
                         $link_column = $v;
                         $str = '$this->addForeignKey(';
-                        $str .= '\'fk_{{%' . $this->getTableName($link_table) . '}}_' . explode('.', microtime('usec'))[1] . '_' . substr("000" . sizeof($foreignKeys), 2) . "',";
+                        $str .= '\'fk_' . $this->getTableName($link_table) . '_' . explode('.', microtime('usec'))[1] . '_' . substr("000" . sizeof($foreignKeys), 2) . "',";
                         $str .= '\'{{%' . $this->getTableName($table) . '}}\', ';
                         $str .= '\'' . $link_to_column . '\', ';
                         $str .= '\'{{%' . $this->getTableName($link_table) . '}}\', ';
