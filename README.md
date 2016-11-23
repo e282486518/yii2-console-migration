@@ -39,11 +39,11 @@ composer require --prefer-dist e282486518/yii2-console-migration "*"
 
 在命令行中使用方式：
 ```
-php ./yii migrates/backup all #备份全部表
-php ./yii migrates/backup table1,table2,table3... #备份多张表
-php ./yii migrates/backup table1 #备份一张表
+php ./yii migrate/backup all #备份全部表
+php ./yii migrate/backup table1,table2,table3... #备份多张表
+php ./yii migrate/backup table1 #备份一张表
 
-php ./yii migrates/up #恢复全部表
+php ./yii migrate/up #恢复全部表
 ```
 
 在后台中备份数据表：
