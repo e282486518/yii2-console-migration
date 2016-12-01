@@ -191,6 +191,9 @@ class MigrateCreate extends Object
                     /* 注意：addslashes会将null转化为'' */
                     if (is_null($row[ $column->name ])) {
                         $out .= "'" . $column->name . "'=>NULL,";
+                    } elseif ($this->is_serialized($row[ $column->name ])) {
+                        /* 序列化的内容被addslashes就不能反序列化了 */
+                        $out .= "'" . $column->name . "'=>'" . $row[ $column->name ] . "',";
                     } else {
                         $out .= "'" . $column->name . "'=>'" . addslashes($row[ $column->name ]) . "',";
                     }
@@ -252,6 +255,36 @@ class MigrateCreate extends Object
             $fields .= " COMMENT \'{$column->comment}\'";
         $fields .= "',";
         return $fields;
+    }
+    
+    /**
+     * ---------------------------------------
+     * 判断字符串是否被序列化
+     * @param $data string  
+     * @return bool
+     * ---------------------------------------
+     */
+    protected function is_serialized( $data ) {
+        $data = trim( $data );
+        if ( 'N;' == $data )
+            return true;
+        if ( !preg_match( '/^([adObis]):/', $data, $badions ) )
+            return false;
+        switch ( $badions[1] ) {
+            case 'a' :
+            case 'O' :
+            case 's' :
+                if ( preg_match( "/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data ) )
+                    return true;
+                break;
+            case 'b' :
+            case 'i' :
+            case 'd' :
+                if ( preg_match( "/^{$badions[1]}:[0-9.E-]+;\$/", $data ) )
+                    return true;
+                break;
+        }
+        return false;
     }
 
 
