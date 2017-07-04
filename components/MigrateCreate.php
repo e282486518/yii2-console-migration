@@ -5,7 +5,7 @@ namespace e282486518\migration\components;
 use Yii;
 use yii\base\Object;
 use yii\helpers\FileHelper;
-use yii\base\view;
+use yii\base\View;
 
 /**
  * 创建Migration文件 
@@ -66,7 +66,7 @@ class MigrateCreate extends Object
         $name = 'm' . gmdate('ymd_His') . '_' . $this->getTableName($table);
         $file = $path . DIRECTORY_SEPARATOR . $name . '.php';
 
-        $view = new view();
+        $view = new View();
         $content = $view->renderFile(dirname(__DIR__)."/views/migration.php", [
             'className' => $name,
             'up' => $this->upStr->output()."\n",
