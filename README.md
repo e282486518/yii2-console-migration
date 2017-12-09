@@ -12,7 +12,7 @@ yii2使用migration备份和还原数据库，最初只想做一个在命令行�
 运行
 
 ```
-composer require --prefer-dist e282486518/yii2-console-migration "*"
+composer require e282486518/yii2-console-migration "@dev"
 ```
 
 或者添加
@@ -31,7 +31,7 @@ composer require --prefer-dist e282486518/yii2-console-migration "*"
 
 ```php
 'controllerMap' => [
-    'migrates' => [
+    'migrate' => [
         'class' => 'e282486518\migration\ConsoleController',
     ],
 ],
