@@ -232,7 +232,7 @@ class MigrateCreate extends Object
     public function getTableField($column){
         $fields = '';
         /* 字段类型 */
-        $fields .= "'{$column->name}' => '" . $column->dbType;
+        $fields .= "'{$column->name}' => \"" . $column->dbType;
         /* 是否为空 */
         if (isset($column->allowNull))
             $fields .= ($column->allowNull) ? ' NULL' : ' NOT NULL';
@@ -241,19 +241,14 @@ class MigrateCreate extends Object
             $fields .= ($column->autoIncrement) ? ' AUTO_INCREMENT' : '';
         /* 默认值 */
         if (isset($column->defaultValue))
-            if (!is_array($column->defaultValue)) {
-                //0 is int
-                if(is_int($column->defaultValue) || !empty($column->defaultValue) || $column->defaultValue == '')
-                {
-                    $fields .= " DEFAULT \'{$column->defaultValue}\'";
-                }
-            } else {
+            if (is_array($column->defaultValue)) {
                 $fields .= (empty($column->defaultValue)) ? '' : " DEFAULT " . $column->defaultValue['expression'] . " ";
+            } elseif (is_object($column->defaultValue)) {
+                    $fields .= " DEFAULT {$column->defaultValue}";
+            } elseif (is_int($column->defaultValue) || !empty($column->defaultValue) || $column->defaultValue == '') {
+                $fields .= " DEFAULT '{$column->defaultValue}'";
             }
-        /* 描述 */
-        if (!empty($column->comment))
-            $fields .= " COMMENT \'{$column->comment}\'";
-        $fields .= "',";
+        $fields .= "\",";
         return $fields;
     }
     
