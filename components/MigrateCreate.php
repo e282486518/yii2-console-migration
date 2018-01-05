@@ -248,6 +248,11 @@ class MigrateCreate extends Object
             } elseif (is_int($column->defaultValue) || !empty($column->defaultValue) || $column->defaultValue == '') {
                 $fields .= " DEFAULT '{$column->defaultValue}'";
             }
+        
+        /* 备注 */
+        if (!empty($column->comment))		
+            $fields .= " COMMENT '{$column->comment}'";
+        
         $fields .= "\",";
         return $fields;
     }
