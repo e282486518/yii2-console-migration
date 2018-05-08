@@ -1,3 +1,9 @@
+注意：如果你使用的是php7.2，那么yii必须使用v2.0.15.1以上，因为yii2核心类Object和php7.2的保留类Object冲突。
+
+```php
+use yii\base\Object // PHP7.1以及之前版本
+use yii\base\BaseObject // PHP7.2
+```
 
 yii2使用migration备份和还原数据库
 ===========================
