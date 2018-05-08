@@ -3,14 +3,14 @@
 namespace e282486518\migration\components;
 
 use Yii;
-use yii\base\Object;
+use yii\base\BaseObject;
 use yii\helpers\FileHelper;
 use yii\base\view;
 
 /**
  * 创建Migration文件 
  */
-class MigrateCreate extends Object
+class MigrateCreate extends BaseObject
 {
     /**
      * @var $upStr OutputString

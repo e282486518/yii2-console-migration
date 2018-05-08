@@ -2,14 +2,14 @@
 namespace e282486518\migration\components;
 
 use Yii;
-use yii\base\Object;
+use yii\base\BaseObject;
 
 
 /**
  * Class OutputString
  * 
  */
-class OutputString extends Object
+class OutputString extends BaseObject
 {
 
     /**
