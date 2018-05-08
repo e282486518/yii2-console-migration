@@ -5,7 +5,7 @@ namespace e282486518\migration\components;
 use Yii;
 use yii\base\BaseObject;
 use yii\helpers\FileHelper;
-use yii\base\view;
+use yii\base\View;
 
 /**
  * 创建Migration文件 
@@ -66,7 +66,7 @@ class MigrateCreate extends BaseObject
         $name = 'm' . gmdate('ymd_His') . '_' . $this->getTableName($table);
         $file = $path . DIRECTORY_SEPARATOR . $name . '.php';
 
-        $view = new view();
+        $view = new View();
         $content = $view->renderFile(dirname(__DIR__)."/views/migration.php", [
             'className' => $name,
             'up' => $this->upStr->output()."\n",
@@ -232,7 +232,7 @@ class MigrateCreate extends BaseObject
     public function getTableField($column){
         $fields = '';
         /* 字段类型 */
-        $fields .= "'{$column->name}' => '" . $column->dbType;
+        $fields .= "'{$column->name}' => \"" . $column->dbType;
         /* 是否为空 */
         if (isset($column->allowNull))
             $fields .= ($column->allowNull) ? ' NULL' : ' NOT NULL';
@@ -241,19 +241,19 @@ class MigrateCreate extends BaseObject
             $fields .= ($column->autoIncrement) ? ' AUTO_INCREMENT' : '';
         /* 默认值 */
         if (isset($column->defaultValue))
-            if (!is_array($column->defaultValue)) {
-                //0 is int
-                if(is_int($column->defaultValue) || !empty($column->defaultValue) || $column->defaultValue == '')
-                {
-                    $fields .= " DEFAULT \'{$column->defaultValue}\'";
-                }
-            } else {
+            if (is_array($column->defaultValue)) {
                 $fields .= (empty($column->defaultValue)) ? '' : " DEFAULT " . $column->defaultValue['expression'] . " ";
+            } elseif (is_object($column->defaultValue)) {
+                    $fields .= " DEFAULT {$column->defaultValue}";
+            } elseif (is_int($column->defaultValue) || !empty($column->defaultValue) || $column->defaultValue == '') {
+                $fields .= " DEFAULT '{$column->defaultValue}'";
             }
-        /* 描述 */
-        if (!empty($column->comment))
-            $fields .= " COMMENT \'{$column->comment}\'";
-        $fields .= "',";
+        
+        /* 备注 */
+        if (!empty($column->comment))		
+            $fields .= " COMMENT '{$column->comment}'";
+        
+        $fields .= "\",";
         return $fields;
     }
     
