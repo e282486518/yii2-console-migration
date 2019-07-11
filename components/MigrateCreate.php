@@ -245,7 +245,7 @@ class MigrateCreate extends BaseObject
                 $fields .= (empty($column->defaultValue)) ? '' : " DEFAULT " . $column->defaultValue['expression'] . " ";
             } elseif (is_object($column->defaultValue)) {
                     $fields .= " DEFAULT {$column->defaultValue}";
-            } elseif (is_int($column->defaultValue) || !empty($column->defaultValue) || $column->defaultValue == '') {
+            } elseif (is_int($column->defaultValue) || !empty($column->defaultValue) || $column->defaultValue == '' || $column->defaultValue == '0') {
                 $fields .= " DEFAULT '{$column->defaultValue}'";
             } elseif (is_null($column->defaultValue)) {
                 $fields .= " DEFAULT NULL";
