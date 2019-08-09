@@ -188,11 +188,14 @@ class MigrateCreate extends BaseObject
             foreach ($data as $row) {
                 $out = '$this->insert(\'{{%' . $this->getTableName($table) . '}}\',[';
                 foreach ($tableSchema->columns as $column) {
-                    /* 注意：addslashes会将null转化为'' */
                     if (is_null($row[ $column->name ])) {
+                        // 注意：addslashes会将null转化为'' 
                         $out .= "'" . $column->name . "'=>NULL,";
                     } elseif ($this->is_serialized($row[ $column->name ])) {
-                        /* 序列化的内容被addslashes就不能反序列化了 */
+                        // 序列化的内容被addslashes就不能反序列化了 
+                        $out .= "'" . $column->name . "'=>'" . $row[ $column->name ] . "',";
+                    } elseif ($this->is_json($row[ $column->name ])) {
+                        // json字符串，注意json字段必须为双引号
                         $out .= "'" . $column->name . "'=>'" . $row[ $column->name ] . "',";
                     } else {
                         $out .= "'" . $column->name . "'=>'" . addslashes($row[ $column->name ]) . "',";
@@ -288,6 +291,21 @@ class MigrateCreate extends BaseObject
         }
         return false;
     }
-
+    
+    /**
+     * ---------------------------------------
+     * 判断字符串是否为json
+     * @param $data string  
+     * @param $assoc bool  
+     * @return bool
+     * ---------------------------------------
+     */
+    protected function is_json($data = '', $assoc = false) {
+        $data = json_decode($data, $assoc);
+        if (($data && is_object($data)) || (is_array($data) && !empty($data))) {
+            return true;
+        }
+        return false;
+    }
 
 }
