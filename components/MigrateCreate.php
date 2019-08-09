@@ -305,6 +305,9 @@ class MigrateCreate extends BaseObject
         if (($data && is_object($data)) || (is_array($data) && !empty($data))) {
             return true;
         }
+        if ($data = '[]') {
+            return true;
+        }
         return false;
     }
 
